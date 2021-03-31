@@ -6,10 +6,12 @@ using UnityEngine;
 public class Ball : MonoBehaviour
 {
     public float launchTimer;
-    public Vector2 speed;
+    public Vector2 initialSpeed;
+    private Vector2 currentSpeed;
     // Start is called before the first frame update
     void Start()
     {
+        resetSpeed();
     }
 
     private float GetTranslationAmount(float speed) => speed * Time.deltaTime;
@@ -20,8 +22,8 @@ public class Ball : MonoBehaviour
         if(this.launchTimer <= 0) {
             transform.Translate(
                 new Vector3(
-                    this.GetTranslationAmount(this.speed.x),
-                    this.GetTranslationAmount(this.speed.y),
+                    this.GetTranslationAmount(this.currentSpeed.x),
+                    this.GetTranslationAmount(this.currentSpeed.y),
                     0
                 )
             );
@@ -39,11 +41,26 @@ public class Ball : MonoBehaviour
         switch (wallType)
         {
             case WallTypes.Side:
-                this.speed.x = -this.speed.x;
+                this.currentSpeed.x = -this.currentSpeed.x;
                 break;
             case WallTypes.Upper:
-                this.speed.y = -this.speed.y;
+                this.currentSpeed.y = -this.currentSpeed.y;
                 break;
+        }
+    }
+
+    public void relaunch(Vector3 relaunchPosition)
+    {
+        resetSpeed(true);
+        this.transform.position = relaunchPosition;
+        this.launchTimer = this.launchTimer / 2f;
+    }
+
+    private void resetSpeed(bool moveDownward = false)
+    {
+        this.currentSpeed = this.initialSpeed;
+        if (moveDownward) {
+            this.currentSpeed.y = -this.initialSpeed.y;
         }
     }
 }

@@ -37,6 +37,7 @@
   </PropertyGroup>
   <ItemGroup>
      <Compile Include="Assets\Ball.cs" />
+     <Compile Include="Assets\BallRelaunch.cs" />
      <Compile Include="Assets\Player.cs" />
      <Compile Include="Assets\Wall.cs" />
     <Reference Include="UnityEngine">
