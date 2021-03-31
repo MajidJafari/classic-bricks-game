@@ -33,4 +33,17 @@ public class Ball : MonoBehaviour
     {
         GetComponent<AudioSource>().Play();
     }
+
+    public void handleSpeed(WallTypes wallType)
+    {
+        switch (wallType)
+        {
+            case WallTypes.Side:
+                this.speed.x = -this.speed.x;
+                break;
+            case WallTypes.Upper:
+                this.speed.y = -this.speed.y;
+                break;
+        }
+    }
 }
