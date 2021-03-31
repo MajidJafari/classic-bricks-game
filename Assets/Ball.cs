@@ -49,6 +49,12 @@ public class Ball : MonoBehaviour
         }
     }
 
+    public void control(bool moveForward) {
+        this.currentSpeed.y = -this.currentSpeed.y;
+        var coefficient = moveForward ? 1 : -1;
+        this.currentSpeed.x = coefficient * Mathf.Abs(this.currentSpeed.x);
+    }
+
     public void relaunch(Vector3 relaunchPosition)
     {
         resetSpeed(true);

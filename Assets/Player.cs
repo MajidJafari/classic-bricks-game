@@ -29,4 +29,10 @@ public class Player : MonoBehaviour
         var horizontalOffset = this.speed * Time.deltaTime * Input.GetAxis("Mouse X");
         transform.Translate(horizontalOffset, 0, 0);
     }
+
+    void OnTriggerEnter(Collider other) 
+    {
+        var ball = other.GetComponent<Ball>();
+        ball.control(other.transform.position.x > gameObject.transform.position.x);
+    }
 }
