@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BallRelaunch : MonoBehaviour
 {
+    public delegate void OnMiss();
+    public static event OnMiss onMiss;
     public Vector3 relaunchPosition;
     // Start is called before the first frame update
     void Start()
@@ -21,5 +23,12 @@ public class BallRelaunch : MonoBehaviour
     {
         var ball = other.GetComponent<Ball>();
         ball.relaunch(this.relaunchPosition);
+        Miss();
+    }
+
+    void Miss() {
+        if (onMiss != null) {
+            onMiss();
+        }
     }
 }

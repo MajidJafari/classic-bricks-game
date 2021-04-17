@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Brick : MonoBehaviour
 {
+    public delegate void OnDeath();
+    public static event OnDeath onDeath;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +24,13 @@ public class Brick : MonoBehaviour
         var ball = other.GetComponent<Ball>();
         var randomMoveForward = new System.Random().Next(0, 2) == 0 ? true : false;
         ball.control(randomMoveForward);
+        Death();
+    }
+
+    void Death() {
+        if (onDeath != null) {
+            onDeath();
+        }
         Destroy(this.gameObject);
     }
 }
