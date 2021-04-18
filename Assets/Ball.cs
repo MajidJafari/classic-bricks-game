@@ -33,6 +33,28 @@ public class Ball : MonoBehaviour
 
     void OnTriggerEnter(Collider other) 
     {
+        var relaunch = other.GetComponent<BallRelaunch>();
+        if (relaunch) {
+            this.relaunch(relaunch.relaunchPosition);    
+            GetComponent<AudioSource>().Play();
+        }
+    }
+    void OnCollisionEnter(Collision collisionInfo)
+    {
+        var wall = collisionInfo.gameObject.GetComponent<Wall>();
+        var brick = collisionInfo.gameObject.GetComponent<Brick>();
+        var player = collisionInfo.gameObject.GetComponent<Player>();
+
+        if (wall) {
+            this.handleSpeed(wall.wallType);
+        }
+        else if (player) {
+            this.control(this.transform.position.x > collisionInfo.transform.position.x);
+        }
+        else if (brick) {
+            var randomMoveForward = new System.Random().Next(0, 2) == 0 ? true : false;
+            this.control(randomMoveForward);
+        }
         GetComponent<AudioSource>().Play();
     }
 

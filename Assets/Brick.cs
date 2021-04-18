@@ -19,11 +19,8 @@ public class Brick : MonoBehaviour
         
     }
 
-    void OnTriggerEnter(Collider other)
+    void OnCollisionEnter(Collision collisionInfo)
     {
-        var ball = other.GetComponent<Ball>();
-        var randomMoveForward = new System.Random().Next(0, 2) == 0 ? true : false;
-        ball.control(randomMoveForward);
         Death();
     }
 

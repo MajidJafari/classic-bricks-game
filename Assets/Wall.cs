@@ -19,10 +19,4 @@ public class Wall : MonoBehaviour
     {
         
     }
-
-    void OnTriggerEnter(Collider other)
-    {
-        var ball = other.GetComponent<Ball>();
-        ball.handleSpeed(this.wallType);
-    }
 }
