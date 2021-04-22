@@ -7,13 +7,14 @@ public class Scoring : MonoBehaviour
     public delegate void OnLifeZero();
     public static event OnLifeZero onLifeZero;
     public int lives;
+    private int initialLives;
     private int score { set; get; } = 0;
-    public int scoringAmount;
+    public int scoringAmount; 
     public TMPro.TMP_Text scoreboard;
     // Start is called before the first frame update
     void Start()
     {
-
+        initialLives = lives;
     }
 
     void OnEnable()
@@ -31,10 +32,10 @@ public class Scoring : MonoBehaviour
     public void LoseLife()
     {
         this.lives--;
+        UpdateScoreboard();
         if (lives <= 0) {
             LifeIsZero();
         }
-        UpdateScoreboard();
     }
 
     public void Score() 
@@ -50,5 +51,6 @@ public class Scoring : MonoBehaviour
         if (onLifeZero != null) {
             onLifeZero();
         }
+        lives = initialLives;
     }    
 }
