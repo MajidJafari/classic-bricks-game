@@ -41,6 +41,8 @@
      <Compile Include="Assets\Brick.cs" />
      <Compile Include="Assets\BricksManager.cs" />
      <Compile Include="Assets\GameOver.cs" />
+     <Compile Include="Assets\HitAudioManager.cs" />
+     <Compile Include="Assets\IHitListener.cs" />
      <Compile Include="Assets\Player.cs" />
      <Compile Include="Assets\Scoring.cs" />
      <Compile Include="Assets\TitleMenu.cs" />

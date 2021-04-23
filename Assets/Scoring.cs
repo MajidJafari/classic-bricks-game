@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Scoring : MonoBehaviour
+public class Scoring : MonoBehaviour, IHitListener
 {
     public delegate void OnLifeZero();
     public static event OnLifeZero onLifeZero;
@@ -23,7 +23,7 @@ public class Scoring : MonoBehaviour
     {
         Brick.onDeath += Score;
         BallRelaunch.onMiss += LoseLife;
-        Ball.onBrickHit += HitStreakStore;
+        Ball.onHit += OnHit;
     }
 
     // Update is called once per frame
@@ -47,8 +47,8 @@ public class Scoring : MonoBehaviour
         UpdateScoreboard();
     }
 
-    public void HitStreakStore(int hitStreak) {
-        if (hitStreak % hitStreakStep == 0) {
+    public void OnHit(HitTypes type, int streak) {
+        if (type == HitTypes.Brick && streak % hitStreakStep == 0) {
             this.score += additionalHitScore;
             UpdateScoreboard();
         }

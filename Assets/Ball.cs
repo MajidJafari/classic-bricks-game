@@ -1,12 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(AudioSource))]
 public class Ball : MonoBehaviour
 {
-    public delegate void OnBrickHit(int hitStreak);
-    public static event OnBrickHit onBrickHit;
+    public delegate void OnHit(HitTypes type, int streak);
+    public static event OnHit onHit;
     public float launchTimer;
     public Vector2 initialSpeed;
     public int BrickHitStreakStep = 8;
@@ -40,28 +40,34 @@ public class Ball : MonoBehaviour
     {
         var relaunch = other.GetComponent<BallRelaunch>();
         if (relaunch) {
-            this.relaunch(relaunch.relaunchPosition);    
-            GetComponent<AudioSource>().Play();
+            this.relaunch(relaunch.relaunchPosition);
         }
     }
     void OnCollisionEnter(Collision collisionInfo)
     {
+        HitTypes type;
         var wall = collisionInfo.gameObject.GetComponent<Wall>();
         var brick = collisionInfo.gameObject.GetComponent<Brick>();
         var player = collisionInfo.gameObject.GetComponent<Player>();
 
         if (wall) {
+            type = HitTypes.Wall;
             handleSpeed(wall.wallType);
         }
         else if (player) {
+            type = HitTypes.Player;
             control(this.transform.position.x > collisionInfo.transform.position.x);
         }
-        else if (brick) {
+        else {
+            type = HitTypes.Brick;
             handleBrickHit();
             var randomMoveForward = new System.Random().Next(0, 2) == 0 ? true : false;
             control(randomMoveForward);
         }
-        GetComponent<AudioSource>().Play();
+        
+        if (onHit != null) {
+            onHit(type, brickHitsStreak);
+        }
     }
 
     public void handleSpeed(WallTypes wallType)
@@ -104,10 +110,6 @@ public class Ball : MonoBehaviour
         if (brickHitsStreak % BrickHitStreakStep == 0) {
             currentSpeed.x += System.Math.Sign(currentSpeed.x) * brickHitAdditionalSpeed.x;
             currentSpeed.y += System.Math.Sign(currentSpeed.y) * brickHitAdditionalSpeed.y;
-        }
-
-        if(onBrickHit != null) {
-            onBrickHit(brickHitsStreak);
         }
     }
 
