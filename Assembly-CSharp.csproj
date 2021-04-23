@@ -36,6 +36,7 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
+     <Compile Include="Assets\AudioManager.cs" />
      <Compile Include="Assets\Ball.cs" />
      <Compile Include="Assets\BallRelaunch.cs" />
      <Compile Include="Assets\Brick.cs" />
@@ -46,6 +47,7 @@
      <Compile Include="Assets\IHitListener.cs" />
      <Compile Include="Assets\ILifeZeroListener.cs" />
      <Compile Include="Assets\ILoseLifeListener.cs" />
+     <Compile Include="Assets\MissAudioManager.cs" />
      <Compile Include="Assets\Player.cs" />
      <Compile Include="Assets\Scoring.cs" />
      <Compile Include="Assets\TitleMenu.cs" />

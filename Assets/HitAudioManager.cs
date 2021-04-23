@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HitAudioManager : MonoBehaviour, IHitListener, ILoseLifeListener, ILifeZeroListener
+public class HitAudioManager : AudioManager, IHitListener, ILoseLifeListener, ILifeZeroListener
 {
     private static HitAudioManager _instance;
     public AudioClip brickHit;
@@ -12,8 +12,11 @@ public class HitAudioManager : MonoBehaviour, IHitListener, ILoseLifeListener, I
     private float currentPitch;
     public int hitStreakStep = 8;
     public float additionalHitPitch = 0.05f;
-    private AudioSource audioSource;
     // Start is called before the first frame update
+    void Start() {
+        ResetPitch();
+    }
+
     void Awake()
     {
         if (_instance != null && _instance != this)
@@ -24,9 +27,6 @@ public class HitAudioManager : MonoBehaviour, IHitListener, ILoseLifeListener, I
         _instance = this;
         DontDestroyOnLoad(gameObject);
         InitializeAudioSource();
-    }
-    void Start() {
-        ResetPitch();
     }
 
     void OnEnable()
@@ -61,16 +61,9 @@ public class HitAudioManager : MonoBehaviour, IHitListener, ILoseLifeListener, I
         }
     }
 
-    private void Play(AudioClip audio) {
-        this.audioSource.clip = audio;
+    protected override void Play(AudioClip audio) {
         this.audioSource.pitch = currentPitch;
-        audioSource.Play();
-    }
-
-    private void InitializeAudioSource() {
-        this.audioSource = GetComponent<AudioSource>();
-        this.audioSource.loop = false;
-        this.audioSource.playOnAwake = false;
+        base.Play(audio);
     }
 
     public void OnLoseLife() {
