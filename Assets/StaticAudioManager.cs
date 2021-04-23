@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MissAudioManager : AudioManager, ILoseLifeListener
+public class StaticAudioManager : AudioManager, ILoseLifeListener, ILifeZeroListener
 {
-    private static MissAudioManager _instance;
+    private static StaticAudioManager _instance;
     public AudioClip missAudio;
+    public AudioClip gameoverAudio;
+    public AudioClip startAudio;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +28,8 @@ public class MissAudioManager : AudioManager, ILoseLifeListener
 
     void OnEnable() {
         BallRelaunch.onMiss += OnLoseLife;
+        Scoring.onLifeZero += OnLifeZero;
+        TitleMenu.onGameplayStart += OnGameplayStart;
     }
 
     // Update is called once per frame
@@ -36,5 +40,13 @@ public class MissAudioManager : AudioManager, ILoseLifeListener
 
     public void OnLoseLife() {
         Play(missAudio);
+    }
+
+    public void OnLifeZero() {
+        Play(gameoverAudio);
+    }
+
+    public void OnGameplayStart() {
+        Play(startAudio);
     }
 }

@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class TitleMenu : MonoBehaviour
 {
+    public delegate void OnGameplayStart();
+    public static event OnGameplayStart onGameplayStart;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,6 +18,9 @@ public class TitleMenu : MonoBehaviour
     {
         if(Input.anyKeyDown) {
             SceneManager.LoadScene("GameplayScene");
+            if (onGameplayStart != null) {
+                onGameplayStart();
+            }
         }
     }
 }

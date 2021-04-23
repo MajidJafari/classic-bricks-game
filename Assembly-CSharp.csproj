@@ -47,9 +47,9 @@
      <Compile Include="Assets\IHitListener.cs" />
      <Compile Include="Assets\ILifeZeroListener.cs" />
      <Compile Include="Assets\ILoseLifeListener.cs" />
-     <Compile Include="Assets\MissAudioManager.cs" />
      <Compile Include="Assets\Player.cs" />
      <Compile Include="Assets\Scoring.cs" />
+     <Compile Include="Assets\StaticAudioManager.cs" />
      <Compile Include="Assets\TitleMenu.cs" />
      <Compile Include="Assets\Wall.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

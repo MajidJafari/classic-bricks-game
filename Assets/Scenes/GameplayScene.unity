@@ -131,8 +131,8 @@ GameObject:
   m_Component:
   - component: {fileID: 122950929}
   - component: {fileID: 122950928}
-  - component: {fileID: 122950930}
   - component: {fileID: 122950931}
+  - component: {fileID: 122950930}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -153,8 +153,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   brickHit: {fileID: 8300000, guid: 6e5df3cc2102fa54db1ad3ba14296465, type: 3}
-  playerHit: {fileID: 8300000, guid: 6e5df3cc2102fa54db1ad3ba14296465, type: 3}
-  wallHit: {fileID: 8300000, guid: 6e5df3cc2102fa54db1ad3ba14296465, type: 3}
+  playerHit: {fileID: 8300000, guid: 6f02b49548160274a96d943203befdc5, type: 3}
+  wallHit: {fileID: 8300000, guid: beeac890e7d9ee744929f82d926df5f1, type: 3}
   initialPitch: 1
   hitStreakStep: 8
   additionalHitPitch: 0.05
@@ -281,6 +281,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   missAudio: {fileID: 8300000, guid: 6259cce77865f5347a3165742086efb9, type: 3}
+  gameoverAudio: {fileID: 8300000, guid: d9873f77bcab09c44a3783041f64592b, type: 3}
+  startAudio: {fileID: 8300000, guid: e50e8b413ca2bea4bbcb0d92f704073d, type: 3}
 --- !u!1 &266425058
 GameObject:
   m_ObjectHideFlags: 0
