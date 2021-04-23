@@ -728,6 +728,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   launchTimer: 2
   initialSpeed: {x: 8, y: 8}
+  brickHitAdditionalSpeed: {x: 10, y: 10}
 --- !u!135 &1032747318
 SphereCollider:
   m_ObjectHideFlags: 0

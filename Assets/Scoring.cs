@@ -10,6 +10,8 @@ public class Scoring : MonoBehaviour
     private int initialLives;
     private int score { set; get; } = 0;
     public int scoringAmount; 
+    public int hitStreakStep = 8;
+    public int additionalHitScore;
     public TMPro.TMP_Text scoreboard;
     // Start is called before the first frame update
     void Start()
@@ -21,6 +23,7 @@ public class Scoring : MonoBehaviour
     {
         Brick.onDeath += Score;
         BallRelaunch.onMiss += LoseLife;
+        Ball.onBrickHit += HitStreakStore;
     }
 
     // Update is called once per frame
@@ -42,6 +45,13 @@ public class Scoring : MonoBehaviour
     {
         this.score += scoringAmount;
         UpdateScoreboard();
+    }
+
+    public void HitStreakStore(int hitStreak) {
+        if (hitStreak % hitStreakStep == 0) {
+            this.score += additionalHitScore;
+            UpdateScoreboard();
+        }
     }
 
     private void UpdateScoreboard() =>

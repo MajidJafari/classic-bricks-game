@@ -5,9 +5,14 @@ using UnityEngine;
 [RequireComponent(typeof(AudioSource))]
 public class Ball : MonoBehaviour
 {
+    public delegate void OnBrickHit(int hitStreak);
+    public static event OnBrickHit onBrickHit;
     public float launchTimer;
     public Vector2 initialSpeed;
+    public int BrickHitStreakStep = 8;
+    public Vector2 brickHitAdditionalSpeed;
     private Vector2 currentSpeed;
+    private int brickHitsStreak = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -46,14 +51,15 @@ public class Ball : MonoBehaviour
         var player = collisionInfo.gameObject.GetComponent<Player>();
 
         if (wall) {
-            this.handleSpeed(wall.wallType);
+            handleSpeed(wall.wallType);
         }
         else if (player) {
-            this.control(this.transform.position.x > collisionInfo.transform.position.x);
+            control(this.transform.position.x > collisionInfo.transform.position.x);
         }
         else if (brick) {
+            handleBrickHit();
             var randomMoveForward = new System.Random().Next(0, 2) == 0 ? true : false;
-            this.control(randomMoveForward);
+            control(randomMoveForward);
         }
         GetComponent<AudioSource>().Play();
     }
@@ -79,6 +85,7 @@ public class Ball : MonoBehaviour
 
     public void relaunch(Vector3 relaunchPosition)
     {
+        this.brickHitsStreak = 0;
         resetSpeed(true);
         this.transform.position = relaunchPosition;
         this.launchTimer = this.launchTimer / 2f;
@@ -91,4 +98,17 @@ public class Ball : MonoBehaviour
             this.currentSpeed.y = -this.initialSpeed.y;
         }
     }
+
+    private void handleBrickHit() {
+        this.brickHitsStreak++;
+        if (brickHitsStreak % BrickHitStreakStep == 0) {
+            currentSpeed.x += System.Math.Sign(currentSpeed.x) * brickHitAdditionalSpeed.x;
+            currentSpeed.y += System.Math.Sign(currentSpeed.y) * brickHitAdditionalSpeed.y;
+        }
+
+        if(onBrickHit != null) {
+            onBrickHit(brickHitsStreak);
+        }
+    }
+
 }
