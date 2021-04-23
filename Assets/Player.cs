@@ -26,7 +26,7 @@ public class Player : MonoBehaviour
             transform.Translate(translationAmount, 0, 0);
         }
 
-        var horizontalOffset = this.speed * Time.deltaTime * Input.GetAxis("Mouse X");
+        var horizontalOffset = (this.speed + 50) * Time.deltaTime * Input.GetAxis("Mouse X");
         transform.Translate(horizontalOffset, 0, 0);
     }
 }
