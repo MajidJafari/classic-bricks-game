@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameOver : MonoBehaviour
+public class GameOver : MonoBehaviour, ILifeZeroListener
 {
     // Start is called before the first frame update
     void Start()
@@ -13,7 +13,7 @@ public class GameOver : MonoBehaviour
 
     void OnEnable()
     {
-        Scoring.onLifeZero += GameIsOver;
+        Scoring.onLifeZero += OnLifeZero;
     }
 
     // Update is called once per frame
@@ -22,7 +22,7 @@ public class GameOver : MonoBehaviour
         
     }
 
-    private void GameIsOver() {
+    public void OnLifeZero() {
         SceneManager.LoadScene("TitleMenuScene");
     }
 }

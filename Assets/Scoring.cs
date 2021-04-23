@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Scoring : MonoBehaviour, IHitListener
+public class Scoring : MonoBehaviour, IHitListener, ILoseLifeListener
 {
     public delegate void OnLifeZero();
     public static event OnLifeZero onLifeZero;
@@ -22,7 +22,7 @@ public class Scoring : MonoBehaviour, IHitListener
     void OnEnable()
     {
         Brick.onDeath += Score;
-        BallRelaunch.onMiss += LoseLife;
+        BallRelaunch.onMiss += OnLoseLife;
         Ball.onHit += OnHit;
     }
 
@@ -32,7 +32,7 @@ public class Scoring : MonoBehaviour, IHitListener
 
     }
 
-    public void LoseLife()
+    public void OnLoseLife()
     {
         this.lives--;
         UpdateScoreboard();

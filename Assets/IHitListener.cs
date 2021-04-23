@@ -3,6 +3,7 @@ public enum HitTypes
     Brick,
     Player,
     Wall,
+    Other,
 }
 public interface IHitListener
 {

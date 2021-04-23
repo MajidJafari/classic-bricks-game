@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Ball : MonoBehaviour
+public class Ball : MonoBehaviour, ILifeZeroListener
 {
     public delegate void OnHit(HitTypes type, int streak);
     public static event OnHit onHit;
@@ -17,6 +17,11 @@ public class Ball : MonoBehaviour
     void Start()
     {
         resetSpeed();
+    }
+
+    void OnEnable()
+    {
+        Scoring.onLifeZero += OnLifeZero;
     }
 
     private float GetTranslationAmount(float speed) => speed * Time.deltaTime;
@@ -45,7 +50,7 @@ public class Ball : MonoBehaviour
     }
     void OnCollisionEnter(Collision collisionInfo)
     {
-        HitTypes type;
+        HitTypes type = HitTypes.Other;
         var wall = collisionInfo.gameObject.GetComponent<Wall>();
         var brick = collisionInfo.gameObject.GetComponent<Brick>();
         var player = collisionInfo.gameObject.GetComponent<Player>();
@@ -58,7 +63,7 @@ public class Ball : MonoBehaviour
             type = HitTypes.Player;
             control(this.transform.position.x > collisionInfo.transform.position.x);
         }
-        else {
+        else if (brick) {
             type = HitTypes.Brick;
             handleBrickHit();
             var randomMoveForward = new System.Random().Next(0, 2) == 0 ? true : false;
@@ -113,4 +118,7 @@ public class Ball : MonoBehaviour
         }
     }
 
+    public void OnLifeZero() {
+        this.brickHitsStreak = 0;
+    }
 }
