@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class HitDisplayer : MonoBehaviour, IHitListener, ILoseLifeListener
-{
+{    
     public TMPro.TMP_Text displayer;
     // Start is called before the first frame update
     void Start()
@@ -24,19 +24,14 @@ public class HitDisplayer : MonoBehaviour, IHitListener, ILoseLifeListener
 
     public void OnHit(HitTypes type, int streak) {
         if (type == HitTypes.Brick) {
-            Display(streak);
-            if (!displayer.enabled) {
-                displayer.enabled = true;
-            }
+            Display(streak.ToString());
         }
         
     }
 
-    public void OnLoseLife() {
-        displayer.enabled = false;
-    }
+    public void OnLoseLife() =>
+        Display("");
 
-    private void Display(int streak) {
-        displayer.SetText(streak.ToString());
-    }
+    private void Display(string text) =>
+        displayer.SetText(text);
 }

@@ -25,7 +25,6 @@ public class HitAudioManager : MonoBehaviour, IHitListener, ILoseLifeListener, I
         DontDestroyOnLoad(gameObject);
         InitializeAudioSource();
     }
-
     void Start() {
         ResetPitch();
     }
