@@ -29,10 +29,10 @@ public class BricksManager : MonoBehaviour
             return Color.yellow;
         }
         else if (y < 4) {
-            return Color.cyan;
+            return Color.green;
         }
         else if (y < 6) {
-            return Color.blue;
+            return Color.white;
         }
         else {
             return Color.red;

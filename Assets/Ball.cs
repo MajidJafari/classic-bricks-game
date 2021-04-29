@@ -54,6 +54,7 @@ public class Ball : MonoBehaviour, ILifeZeroListener
         var wall = collisionInfo.gameObject.GetComponent<Wall>();
         var brick = collisionInfo.gameObject.GetComponent<Brick>();
         var player = collisionInfo.gameObject.GetComponent<Player>();
+        this.gameObject.transform.rotation = Quaternion.identity;
 
         if (wall) {
             type = HitTypes.Wall;
